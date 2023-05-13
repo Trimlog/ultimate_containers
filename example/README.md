@@ -1,4 +1,4 @@
-# flutter_stylesheets_example
+# flutter_fss_example
 
 A new Flutter project.
 

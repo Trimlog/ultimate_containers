@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_stylesheets/src/fss.dart';
-import 'package:flutter_stylesheets/src/fss_provider.dart';
-import 'package:flutter_stylesheets/src/units/unit_context.dart';
+import 'package:flutter_fss/src/fss.dart';
+import 'package:flutter_fss/src/fss_provider.dart';
+import 'package:flutter_fss/src/units/unit_context.dart';
 
 class Div extends StatelessWidget {
   Div(

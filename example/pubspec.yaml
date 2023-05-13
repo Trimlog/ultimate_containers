@@ -1,4 +1,4 @@
-name: flutter_stylesheets_example
+name: flutter_fss_example
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -40,7 +40,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  flutter_stylesheets:
+  flutter_fss:
     path: ../
 
 

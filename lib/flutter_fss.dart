@@ -1,4 +1,4 @@
-library flutter_stylesheets;
+library flutter_fss;
 
 export 'src/components/components.dart';
 export 'src/fss.dart';

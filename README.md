@@ -1,4 +1,4 @@
-# flutter_stylesheets
+# flutter_fss
 Styling Widgets like CSS ith FSS.
 
 ## Benefits

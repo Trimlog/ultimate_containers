@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_stylesheets/src/fss_provider.dart';
-import 'package:flutter_stylesheets/src/units/px.dart';
-import 'package:flutter_stylesheets/src/units/unit.dart';
-import 'package:flutter_stylesheets/src/units/unit_context.dart';
+import 'package:flutter_fss/src/fss_provider.dart';
+import 'package:flutter_fss/src/units/px.dart';
+import 'package:flutter_fss/src/units/unit.dart';
+import 'package:flutter_fss/src/units/unit_context.dart';
 
 class FSS {
   // Text styles
@@ -419,7 +419,7 @@ class FSS {
 
   static FSS ofUctx(UnitContext uctx) {
     return uctx.context?.dependOnInheritedWidgetOfExactType<FSSProvider>()?.fss ?? FSS.basic();
-  } 
+  }
 
   FSS.basic() {
     fontSize = Px(16);

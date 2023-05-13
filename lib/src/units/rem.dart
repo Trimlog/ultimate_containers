@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_stylesheets/src/fss.dart';
-import 'package:flutter_stylesheets/src/units/unit.dart';
-import 'package:flutter_stylesheets/src/units/unit_context.dart';
+import 'package:flutter_fss/src/fss.dart';
+import 'package:flutter_fss/src/units/unit.dart';
+import 'package:flutter_fss/src/units/unit_context.dart';
 
 class Rem implements Unit {
   final double value;
