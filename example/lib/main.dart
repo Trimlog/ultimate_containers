@@ -31,6 +31,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final style1 = FSS(
+    w: const Vh(0.5),
+    h: const Em(2),
+    bg: Colors.black,
+    br: const Em(100),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Container(),
+        child: Div([style1]),
       ),
     );
   }
