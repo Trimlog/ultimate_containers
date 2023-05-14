@@ -65,7 +65,13 @@ class FSS {
   mergeAddUnitBoxShadow(UnitBoxShadow shadow) => this.merge(FSS(shadows: [...this.shadows ?? [], shadow]));
   mergeAddBoxShadow(BoxShadow shadow) => this.merge(FSS(shadows: [...this.shadows ?? [], UnitBoxShadow.fromBoxShadow(shadow)]));
 
-  // Needs Layout Build (if contains Percent Unit)
+  // Responsive styles
+  FSS? xs;
+  FSS? sm;
+  FSS? md;
+  FSS? lg;
+  FSS? xl;
+  FSS? xxl;
 
   // Getters
   TextStyle textStyle(UnitContext uctx) => TextStyle(
@@ -137,7 +143,13 @@ class FSS {
       if (borderWidth != null) 'borderWidth': borderWidth,
       if (borderStyle != null) 'borderStyle': borderStyle,
       if (borderAlign != null) 'borderAlign': borderAlign,
-      if (shadows != null) 'shadows': shadows
+      if (shadows != null) 'shadows': shadows,
+      if (xs != null) 'xs': xs?.toMap(),
+      if (sm != null) 'sm': sm?.toMap(),
+      if (md != null) 'md': md?.toMap(),
+      if (lg != null) 'lg': lg?.toMap(),
+      if (xl != null) 'xl': xl?.toMap(),
+      if (xxl != null) 'xxl': xxl?.toMap(),
     };
   }
 
@@ -240,6 +252,24 @@ class FSS {
 
     /// shadow
     List<UnitBoxShadow>? shadows,
+
+    /// xs
+    FSS? xs,
+
+    /// sm
+    FSS? sm,
+
+    /// md
+    FSS? md,
+
+    /// lg
+    FSS? lg,
+
+    /// xl
+    FSS? xl,
+
+    /// xxl
+    FSS? xxl,
 
     // === Text Abbrevations ===
     /// color
@@ -370,6 +400,7 @@ class FSS {
     Color? bg,
   }) {
     // Text
+    this.color = color ?? c;
     this.fontSize = fontSize;
     this.fontWeight = fontWeight;
     this.fontStyle = fontStyle;
@@ -381,22 +412,19 @@ class FSS {
     this.textShadowBlur = textShadowBlur;
     this.textShadowOffset = textShadowOffset;
 
-    // Text Abbrevations
-    this.color = color ?? c;
-
-    // Padding Abbrevations
+    // Padding
     this.paddingTop = padding ?? p ?? paddingVertical ?? py ?? paddingTop ?? pt;
     this.paddingBottom = padding ?? p ?? paddingVertical ?? py ?? paddingBottom ?? pb;
     this.paddingLeft = padding ?? p ?? paddingHorizontal ?? px ?? paddingLeft ?? pl;
     this.paddingRight = padding ?? p ?? paddingHorizontal ?? px ?? paddingRight ?? pr;
 
-    // Margin Abbrevations
+    // Margin
     this.marginTop = margin ?? m ?? marginVertical ?? my ?? marginTop ?? mt;
     this.marginBottom = margin ?? m ?? marginVertical ?? my ?? marginBottom ?? mb;
     this.marginLeft = margin ?? m ?? marginHorizontal ?? mx ?? marginLeft ?? ml;
     this.marginRight = margin ?? m ?? marginHorizontal ?? mx ?? marginRight ?? mr;
 
-    // Border Abbrevations
+    // Border
     this.borderRadiusTopLeft = borderRadius ?? br ?? borderRadiusTop ?? brt ?? borderRadiusTopLeft ?? brtl;
     this.borderRadiusTopRight = borderRadius ?? br ?? borderRadiusTop ?? brt ?? borderRadiusTopRight ?? brtr;
     this.borderRadiusBottomLeft = borderRadius ?? br ?? borderRadiusBottom ?? brb ?? borderRadiusBottomLeft ?? brbl;
@@ -406,12 +434,20 @@ class FSS {
     this.borderStyle = borderStyle;
     this.borderAlign = borderAlign;
 
-    // Box Style Abbrevations
+    // Box Style
     this.width = width ?? w;
     this.height = height ?? h;
     this.opacity = opacity ?? o;
     this.backgroundColor = backgroundColor ?? bg;
     this.shadows = shadows;
+
+    // Responsive
+    this.xs = xs;
+    this.sm = sm;
+    this.md = md;
+    this.lg = lg;
+    this.xl = xl;
+    this.xxl = xxl;
   }
 
   static FSS mergeFss(FSS? baseFss, FSS? overwriteFss) {
@@ -449,6 +485,13 @@ class FSS {
             borderWidth: overwriteFss.borderWidth ?? baseFss.borderWidth,
             borderStyle: overwriteFss.borderStyle ?? baseFss.borderStyle,
             borderAlign: overwriteFss.borderAlign ?? baseFss.borderAlign,
+            shadows: overwriteFss.shadows ?? baseFss.shadows,
+            xs: overwriteFss.xs ?? baseFss.xs,
+            sm: overwriteFss.sm ?? baseFss.sm,
+            md: overwriteFss.md ?? baseFss.md,
+            lg: overwriteFss.lg ?? baseFss.lg,
+            xl: overwriteFss.xl ?? baseFss.xl,
+            xxl: overwriteFss.xxl ?? baseFss.xxl,
           )
         : baseFss;
   }
@@ -498,4 +541,22 @@ class FSS {
   }
 
   bool hasBorderRadius() => (borderRadiusTopLeft ?? borderRadiusTopRight ?? borderRadiusBottomLeft ?? borderRadiusBottomRight) != null;
+
+  FSS flattenResponsive(Breakpoint? breakpoint) {
+    final responsive = getResponsive(breakpoint);
+    if (responsive == null)
+      return this;
+    else
+      return this.merge(responsive.flattenResponsive(breakpoint));
+  }
+
+  FSS? getResponsive(Breakpoint? breakpoint) {
+    if (breakpoint == Breakpoint.xs) return xs;
+    if (breakpoint == Breakpoint.sm) return sm;
+    if (breakpoint == Breakpoint.md) return md;
+    if (breakpoint == Breakpoint.lg) return lg;
+    if (breakpoint == Breakpoint.xl) return xl;
+    if (breakpoint == Breakpoint.xxl) return xxl;
+    return null;
+  }
 }

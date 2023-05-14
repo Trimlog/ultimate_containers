@@ -50,10 +50,10 @@ class PercentH extends Percent {
   const PercentH(double value) : super(value, Axis.vertical);
 
   @override
-  CalculatedUnit operator +(Unit other) => CalculatedUnit.add(this, other);
+  Calc operator +(Unit other) => Calc.add(this, other);
 
   @override
-  CalculatedUnit operator -(Unit other) => CalculatedUnit.subtract(this, other);
+  Calc operator -(Unit other) => Calc.subtract(this, other);
 
   @override
   PercentH operator /(double factor) => PercentH(value * factor);
@@ -67,10 +67,10 @@ class PercentW extends Percent {
   const PercentW(double value) : super(value, Axis.horizontal);
 
   @override
-  CalculatedUnit operator +(Unit other) => CalculatedUnit.add(this, other);
+  Calc operator +(Unit other) => Calc.add(this, other);
 
   @override
-  CalculatedUnit operator -(Unit other) => CalculatedUnit.subtract(this, other);
+  Calc operator -(Unit other) => Calc.subtract(this, other);
 
   @override
   PercentW operator /(double factor) => PercentW(value * factor);

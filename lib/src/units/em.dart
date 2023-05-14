@@ -18,10 +18,10 @@ class Em implements Unit {
   const Em(this.value);
 
   @override
-  CalculatedUnit operator +(Unit other) => CalculatedUnit.add(this, other);
+  Calc operator +(Unit other) => Calc.add(this, other);
 
   @override
-  CalculatedUnit operator -(Unit other) => CalculatedUnit.subtract(this, other);
+  Calc operator -(Unit other) => Calc.subtract(this, other);
 
   @override
   Unit operator /(double factor) => Em(value * factor);

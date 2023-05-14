@@ -18,7 +18,6 @@ class C extends StatelessWidget {
       else
         children.add(T(input));
     }
-    if (children.isEmpty) children.add(Container());
   }
 
   late final List<FSS?> fss;
@@ -26,43 +25,49 @@ class C extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctx) {
-    final newFss = FSS.of(ctx).inhertiable().mergeMulti(this.fss);
+    final breakpoint = Breakpoints.of(ctx)?.getBreakpoint(ctx);
+    final fss = FSS
+        .of(ctx)
+        .inhertiable() // Inherit text styles
+        .mergeMulti(this.fss) // merge provided styles
+        .flattenResponsive(breakpoint); // calculate responsive styles based on breakpoint
 
     return LayoutBuilder(
       builder: (ctx, constraints) {
         final uctx = UnitContext(ctx, constraints);
+
         return Padding(
-          padding: newFss.marginEdgeInset(UnitContext(ctx, constraints)),
+          padding: fss.marginEdgeInset(UnitContext(ctx, constraints)),
           child: Container(
-            width: newFss.width?.px(uctx),
-            height: newFss.height?.px(uctx),
-            padding: newFss.paddingEdgeInset(uctx),
+            width: fss.width?.px(uctx),
+            height: fss.height?.px(uctx),
+            padding: fss.paddingEdgeInset(uctx),
             decoration: BoxDecoration(
-              color: newFss.backgroundColor,
-              borderRadius: newFss.hasBorderRadius()
+              color: fss.backgroundColor,
+              borderRadius: fss.hasBorderRadius()
                   ? BorderRadius.only(
-                      topLeft: Radius.circular(newFss.borderRadiusTopLeft?.px(uctx) ?? 0),
-                      topRight: Radius.circular(newFss.borderRadiusTopRight?.px(uctx) ?? 0),
-                      bottomLeft: Radius.circular(newFss.borderRadiusBottomLeft?.px(uctx) ?? 0),
-                      bottomRight: Radius.circular(newFss.borderRadiusBottomRight?.px(uctx) ?? 0),
+                      topLeft: Radius.circular(fss.borderRadiusTopLeft?.px(uctx) ?? 0),
+                      topRight: Radius.circular(fss.borderRadiusTopRight?.px(uctx) ?? 0),
+                      bottomLeft: Radius.circular(fss.borderRadiusBottomLeft?.px(uctx) ?? 0),
+                      bottomRight: Radius.circular(fss.borderRadiusBottomRight?.px(uctx) ?? 0),
                     )
                   : BorderRadius.zero,
               border: Border.fromBorderSide(BorderSide(
-                color: newFss.borderColor ?? Colors.transparent,
-                width: newFss.borderWidth?.px(uctx) ?? 0,
-                style: newFss.borderStyle ?? BorderStyle.solid,
-                strokeAlign: newFss.borderAlign ?? -1,
+                color: fss.borderColor ?? Colors.transparent,
+                width: fss.borderWidth?.px(uctx) ?? 0,
+                style: fss.borderStyle ?? BorderStyle.solid,
+                strokeAlign: fss.borderAlign ?? -1,
               )),
-              boxShadow: newFss.shadows?.map((e) => e.boxShadow(uctx)).toList(),
+              boxShadow: fss.shadows?.map((e) => e.boxShadow(uctx)).toList(),
             ),
             child: FSSProvider(
-              fss: newFss,
-              child: children.length > 1
-                  ? Column(
-                      children: children,
-                    )
-                  : children.first,
-            ),
+                fss: fss,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: children,
+                )),
           ),
         );
       },

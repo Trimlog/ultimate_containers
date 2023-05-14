@@ -27,10 +27,10 @@ class U extends Unit {
   double parse(String suffix, String string) => double.parse(string.replaceAll(suffix, ''));
 
   @override
-  CalculatedUnit operator +(Unit other) => CalculatedUnit.add(this, other);
+  Calc operator +(Unit other) => Calc.add(this, other);
 
   @override
-  CalculatedUnit operator -(Unit other) => CalculatedUnit.subtract(this, other);
+  Calc operator -(Unit other) => Calc.subtract(this, other);
 
   @override
   Unit operator /(double factor) => unit / factor;

@@ -46,10 +46,10 @@ class Vh extends Viewport {
   const Vh(double value) : super(value, ViewportUnit.vh);
 
   @override
-  CalculatedUnit operator +(Unit other) => CalculatedUnit.add(this, other);
+  Calc operator +(Unit other) => Calc.add(this, other);
 
   @override
-  CalculatedUnit operator -(Unit other) => CalculatedUnit.subtract(this, other);
+  Calc operator -(Unit other) => Calc.subtract(this, other);
 
   @override
   Vh operator /(double factor) => Vh(value * factor);
@@ -62,10 +62,10 @@ class Vw extends Viewport {
   const Vw(double value) : super(value, ViewportUnit.vw);
 
   @override
-  CalculatedUnit operator +(Unit other) => CalculatedUnit.add(this, other);
+  Calc operator +(Unit other) => Calc.add(this, other);
 
   @override
-  CalculatedUnit operator -(Unit other) => CalculatedUnit.subtract(this, other);
+  Calc operator -(Unit other) => Calc.subtract(this, other);
 
   @override
   Vw operator /(double factor) => Vw(value * factor);
@@ -78,10 +78,10 @@ class Vmin extends Viewport {
   const Vmin(double value) : super(value, ViewportUnit.vmin);
 
   @override
-  CalculatedUnit operator +(Unit other) => CalculatedUnit.add(this, other);
+  Calc operator +(Unit other) => Calc.add(this, other);
 
   @override
-  CalculatedUnit operator -(Unit other) => CalculatedUnit.subtract(this, other);
+  Calc operator -(Unit other) => Calc.subtract(this, other);
 
   @override
   Vmin operator /(double factor) => Vmin(value * factor);
@@ -94,10 +94,10 @@ class Vmax extends Viewport {
   const Vmax(double value) : super(value, ViewportUnit.vmax);
 
   @override
-  CalculatedUnit operator +(Unit other) => CalculatedUnit.add(this, other);
+  Calc operator +(Unit other) => Calc.add(this, other);
 
   @override
-  CalculatedUnit operator -(Unit other) => CalculatedUnit.subtract(this, other);
+  Calc operator -(Unit other) => Calc.subtract(this, other);
 
   @override
   Vmax operator /(double factor) => Vmax(value * factor);

@@ -33,7 +33,7 @@ Your ultimate layouting widget is `C`. Container, Text, Column, Row and styling 
 - [ ] String unit parser `parseUnit('50px')` -> `Px(50)`
 
 ## Responsiveness
-- [ ] Responisve breakpoints
+- [X] Responisve breakpoints `Breakpoints``Breakpoint` `BreakpointProvider``BreakpointProviderBuilder`
 
 ## CSS Properties
 ### Text
@@ -104,3 +104,5 @@ Your ultimate layouting widget is `C`. Container, Text, Column, Row and styling 
 
 ## Stack
 - [ ] Widget `Stack`
+
+## Icon
