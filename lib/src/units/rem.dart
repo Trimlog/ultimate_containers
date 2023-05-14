@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_fss/src/fss.dart';
-import 'package:flutter_fss/src/units/unit.dart';
-import 'package:flutter_fss/src/units/unit_context.dart';
+import 'package:ultimate_containers/ultimate_containers.dart';
 
 class Rem implements Unit {
   final double value;
@@ -15,7 +13,21 @@ class Rem implements Unit {
   }
 
   @override
-  get cssValue => '${value}em';
+  String toString() => '${value}px';
 
   const Rem(this.value);
+
+  @override
+  CalculatedUnit operator +(Unit other) => CalculatedUnit.add(this, other);
+
+  @override
+  CalculatedUnit operator -(Unit other) => CalculatedUnit.subtract(this, other);
+
+  @override
+  Rem operator /(double factor) => Rem(value * factor);
+
+  @override
+  Rem operator *(double factor) => Rem(value / factor);
 }
+
+Rem rem(double value) => Rem(value);

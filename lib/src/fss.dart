@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fss/src/fss_provider.dart';
-import 'package:flutter_fss/src/units/px.dart';
-import 'package:flutter_fss/src/units/unit.dart';
-import 'package:flutter_fss/src/units/unit_context.dart';
+import 'package:ultimate_containers/ultimate_containers.dart';
 
 class FSS {
   // Text styles
@@ -21,27 +18,25 @@ class FSS {
   // ?? debug label
   String? fontFamily; // font-family
   TextOverflow? textOverflow; // text-overflow
-  FSS setTextStyle(TextStyle style) {
-    color = style.color;
-    fontSize = Px(style.fontSize ?? 16);
-    fontWeight = style.fontWeight;
-    fontStyle = style.fontStyle;
-    letterSpacing = Px(style.letterSpacing ?? 0);
-    wordSpacing = Px(style.wordSpacing ?? 0);
-    fontFamily = style.fontFamily;
-    return this;
-  }
+  FSS mergeTextStyle(TextStyle style) => this.merge(FSS(
+        color: style.color,
+        fontSize: Px(style.fontSize ?? 16),
+        fontWeight: style.fontWeight,
+        fontStyle: style.fontStyle,
+        letterSpacing: Px(style.letterSpacing ?? 0),
+        wordSpacing: Px(style.wordSpacing ?? 0),
+        fontFamily: style.fontFamily,
+      ));
 
   // Text shadow
   Color? textShadowColor;
   Offset? textShadowOffset;
   Unit? textShadowBlur;
-  FSS textShadow(Shadow shadow) {
-    textShadowColor = shadow.color;
-    textShadowOffset = shadow.offset;
-    textShadowBlur = Px(shadow.blurRadius);
-    return this;
-  }
+  FSS mergeTextShadow(Shadow shadow) => this.merge(FSS(
+        textShadowColor: shadow.color,
+        textShadowOffset: shadow.offset,
+        textShadowBlur: Px(shadow.blurRadius),
+      ));
 
   // Box styles
   Unit? width;
@@ -64,15 +59,11 @@ class FSS {
   Unit? borderWidth;
 
   // Box Shadow
-  Offset? shadowOffset;
-  Unit? shadowBlur;
-  Color? shadowColor;
-  FSS setShadow(Shadow shadow) {
-    shadowOffset = shadow.offset;
-    shadowBlur = Px(shadow.blurRadius);
-    shadowColor = shadow.color;
-    return this;
-  }
+  List<UnitBoxShadow>? shadows;
+  mergeAddUnitBoxShadow(UnitBoxShadow shadow) => this.merge(FSS(shadows: [...this.shadows ?? [], shadow]));
+  mergeAddBoxShadow(BoxShadow shadow) => this.merge(FSS(shadows: [...this.shadows ?? [], UnitBoxShadow.fromBoxShadow(shadow)]));
+
+  // Needs Layout Build (if contains Percent Unit)
 
   // Getters
   TextStyle textStyle(UnitContext uctx) => TextStyle(
@@ -96,27 +87,20 @@ class FSS {
         top: marginTop?.px(uctx) ?? 0,
         bottom: marginBottom?.px(uctx) ?? 0,
       );
-  Shadow shadow(UnitContext uctx) => Shadow(
-        color: shadowColor ?? Colors.transparent,
-        offset: shadowOffset ?? Offset.zero,
-        blurRadius: shadowBlur?.px(uctx) ?? 0,
-      );
 
   // Inheritable styles
-  FSS inhertiable() {
-    return FSS(
-      color: color,
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      fontStyle: fontStyle,
-      letterSpacing: letterSpacing,
-      wordSpacing: wordSpacing,
-      fontFamily: fontFamily,
-      textShadowColor: textShadowColor,
-      textShadowOffset: textShadowOffset,
-      textShadowBlur: textShadowBlur,
-    );
-  }
+  FSS inhertiable() => FSS(
+        color: color,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        fontStyle: fontStyle,
+        letterSpacing: letterSpacing,
+        wordSpacing: wordSpacing,
+        fontFamily: fontFamily,
+        textShadowColor: textShadowColor,
+        textShadowOffset: textShadowOffset,
+        textShadowBlur: textShadowBlur,
+      );
 
   // Convert to Map
   Map<String, dynamic> toMap() {
@@ -147,6 +131,9 @@ class FSS {
       if (borderRadiusTopRight != null) 'borderRadiusTopRight': borderRadiusTopRight,
       if (borderRadiusBottomLeft != null) 'borderRadiusButtomLeft': borderRadiusBottomLeft,
       if (borderRadiusBottomRight != null) 'borderRadiusBottomRight': borderRadiusBottomRight,
+      if (borderColor != null) 'borderColor': borderColor,
+      if (borderWidth != null) 'borderWidth': borderWidth,
+      if (shadows != null) 'shadows': shadows
     };
   }
 
@@ -155,37 +142,40 @@ class FSS {
     Color? color,
 
     /// font-size
-    this.fontSize,
+    Unit? fontSize,
 
     /// font-weight
-    this.fontWeight,
+    FontWeight? fontWeight,
 
     /// font-style
-    this.fontStyle,
+    FontStyle? fontStyle,
 
     /// letter-spacing
-    this.letterSpacing,
+    Unit? letterSpacing,
 
     /// word-spacing
-    this.wordSpacing,
+    Unit? wordSpacing,
 
     /// font-family
-    this.fontFamily,
+    String? fontFamily,
+
+    /// text-overflow
+    TextOverflow? textOverflow,
 
     /// text-shadow (color)
-    this.textShadowColor,
+    Color? textShadowColor,
 
     /// text-shadow (offset)
-    this.textShadowOffset,
+    Offset? textShadowOffset,
 
     /// text-shadow (blur)
-    this.textShadowBlur,
+    Unit? textShadowBlur,
 
     /// width
-    this.width,
+    Unit? width,
 
     /// height
-    this.height,
+    Unit? height,
 
     /// padding-top
     Unit? paddingTop,
@@ -212,10 +202,10 @@ class FSS {
     Unit? marginRight,
 
     /// background-color
-    this.backgroundColor,
+    Color? backgroundColor,
 
     /// opacity
-    this.opacity,
+    double? opacity,
 
     /// border-radius-top-left
     Unit? borderRadiusTopLeft,
@@ -228,6 +218,16 @@ class FSS {
 
     /// border-radius-bottom-right
     Unit? borderRadiusBottomRight,
+
+    /// border-color
+    Color? borderColor,
+
+    /// border-width
+    Unit? borderWidth,
+
+    /// shadow
+    List<UnitBoxShadow>? shadows,
+
     // === Text Abbrevations ===
     /// color
     Color? c,
@@ -294,7 +294,7 @@ class FSS {
     /// margin
     Unit? m,
 
-    // === Border Radius Abbrevations ===
+    // === Border Abbrevations ===
     /// border-radius-top-left
     Unit? brtl,
 
@@ -337,6 +337,12 @@ class FSS {
     /// border-radius
     Unit? br,
 
+    /// border-color
+    Color? bc,
+
+    /// border-width
+    Unit? bw,
+
     // === Box Style Abbrevations ===
     /// width
     Unit? w,
@@ -350,6 +356,18 @@ class FSS {
     /// background-color
     Color? bg,
   }) {
+    // Text
+    this.fontSize = fontSize;
+    this.fontWeight = fontWeight;
+    this.fontStyle = fontStyle;
+    this.letterSpacing = letterSpacing;
+    this.wordSpacing = wordSpacing;
+    this.fontFamily = fontFamily;
+    this.textOverflow = textOverflow;
+    this.textShadowColor = textShadowColor;
+    this.textShadowBlur = textShadowBlur;
+    this.textShadowOffset = textShadowOffset;
+
     // Text Abbrevations
     this.color = color ?? c;
 
@@ -365,53 +383,84 @@ class FSS {
     this.marginLeft = margin ?? m ?? marginHorizontal ?? mx ?? marginLeft ?? ml;
     this.marginRight = margin ?? m ?? marginHorizontal ?? mx ?? marginRight ?? mr;
 
-    // Border Radius Abbrevations
+    // Border Abbrevations
     this.borderRadiusTopLeft = borderRadius ?? br ?? borderRadiusTop ?? brt ?? borderRadiusTopLeft ?? brtl;
     this.borderRadiusTopRight = borderRadius ?? br ?? borderRadiusTop ?? brt ?? borderRadiusTopRight ?? brtr;
     this.borderRadiusBottomLeft = borderRadius ?? br ?? borderRadiusBottom ?? brb ?? borderRadiusBottomLeft ?? brbl;
     this.borderRadiusBottomRight = borderRadius ?? br ?? borderRadiusBottom ?? brb ?? borderRadiusBottomRight ?? brbr;
+    this.borderColor = borderColor ?? bc;
+    this.borderWidth = borderWidth ?? bw;
 
     // Box Style Abbrevations
     this.width = width ?? w;
     this.height = height ?? h;
     this.opacity = opacity ?? o;
     this.backgroundColor = backgroundColor ?? bg;
+    this.shadows = shadows;
   }
 
-  FSS merge(FSS? other) {
-    return other != null
+  static FSS mergeFss(FSS? baseFss, FSS? overwriteFss) {
+    if (baseFss == null) return FSS();
+    return overwriteFss != null
         ? FSS(
-            color: other.color ?? color,
-            fontSize: other.fontSize ?? fontSize,
-            fontWeight: other.fontWeight ?? fontWeight,
-            fontStyle: other.fontStyle ?? fontStyle,
-            letterSpacing: other.letterSpacing ?? letterSpacing,
-            wordSpacing: other.wordSpacing ?? wordSpacing,
-            fontFamily: other.fontFamily ?? fontFamily,
-            textShadowColor: other.textShadowColor ?? textShadowColor,
-            textShadowOffset: other.textShadowOffset ?? textShadowOffset,
-            textShadowBlur: other.textShadowBlur ?? textShadowBlur,
-            width: other.width ?? width,
-            height: other.height ?? height,
-            paddingTop: other.paddingTop ?? paddingTop,
-            paddingBottom: other.paddingBottom ?? paddingBottom,
-            paddingLeft: other.paddingLeft ?? paddingLeft,
-            paddingRight: other.paddingRight ?? paddingRight,
-            marginTop: other.marginTop ?? marginTop,
-            marginBottom: other.marginBottom ?? marginBottom,
-            marginLeft: other.marginLeft ?? marginLeft,
-            marginRight: other.marginRight ?? marginRight,
-            backgroundColor: other.backgroundColor ?? backgroundColor,
-            opacity: other.opacity ?? opacity,
-            borderRadiusTopLeft: other.borderRadiusTopLeft ?? borderRadiusTopLeft,
-            borderRadiusTopRight: other.borderRadiusTopRight ?? borderRadiusTopRight,
-            borderRadiusBottomLeft: other.borderRadiusBottomLeft ?? borderRadiusBottomLeft,
-            borderRadiusBottomRight: other.borderRadiusBottomRight ?? borderRadiusBottomRight,
+            color: overwriteFss.color ?? baseFss.color,
+            fontSize: overwriteFss.fontSize ?? baseFss.fontSize,
+            fontWeight: overwriteFss.fontWeight ?? baseFss.fontWeight,
+            fontStyle: overwriteFss.fontStyle ?? baseFss.fontStyle,
+            letterSpacing: overwriteFss.letterSpacing ?? baseFss.letterSpacing,
+            wordSpacing: overwriteFss.wordSpacing ?? baseFss.wordSpacing,
+            fontFamily: overwriteFss.fontFamily ?? baseFss.fontFamily,
+            textOverflow: overwriteFss.textOverflow ?? baseFss.textOverflow,
+            textShadowColor: overwriteFss.textShadowColor ?? baseFss.textShadowColor,
+            textShadowOffset: overwriteFss.textShadowOffset ?? baseFss.textShadowOffset,
+            textShadowBlur: overwriteFss.textShadowBlur ?? baseFss.textShadowBlur,
+            width: overwriteFss.width ?? baseFss.width,
+            height: overwriteFss.height ?? baseFss.height,
+            paddingTop: overwriteFss.paddingTop ?? baseFss.paddingTop,
+            paddingBottom: overwriteFss.paddingBottom ?? baseFss.paddingBottom,
+            paddingLeft: overwriteFss.paddingLeft ?? baseFss.paddingLeft,
+            paddingRight: overwriteFss.paddingRight ?? baseFss.paddingRight,
+            marginTop: overwriteFss.marginTop ?? baseFss.marginTop,
+            marginBottom: overwriteFss.marginBottom ?? baseFss.marginBottom,
+            marginLeft: overwriteFss.marginLeft ?? baseFss.marginLeft,
+            marginRight: overwriteFss.marginRight ?? baseFss.marginRight,
+            backgroundColor: overwriteFss.backgroundColor ?? baseFss.backgroundColor,
+            opacity: overwriteFss.opacity ?? baseFss.opacity,
+            borderRadiusTopLeft: overwriteFss.borderRadiusTopLeft ?? baseFss.borderRadiusTopLeft,
+            borderRadiusTopRight: overwriteFss.borderRadiusTopRight ?? baseFss.borderRadiusTopRight,
+            borderRadiusBottomLeft: overwriteFss.borderRadiusBottomLeft ?? baseFss.borderRadiusBottomLeft,
+            borderRadiusBottomRight: overwriteFss.borderRadiusBottomRight ?? baseFss.borderRadiusBottomRight,
           )
-        : this;
+        : baseFss;
   }
 
-  FSS mergeMulti(List<FSS?>? others) => others?.fold(this, (previousValue, element) => previousValue?.merge(element)) ?? this;
+  FSS merge(FSS overwriteFss) => FSS.mergeFss(this, overwriteFss);
+
+  FSS mergeMulti(List<FSS?>? overwriteFss) =>
+      overwriteFss?.fold(
+        this,
+        (previousValue, element) => element != null
+            ? FSS.mergeFss(
+                previousValue,
+                element,
+              )
+            : previousValue,
+      ) ??
+      this;
+
+  FSS dependsOn(FSS baseFss) => FSS.mergeFss(baseFss, this);
+
+  FSS dependsOnMulti(List<FSS?>? baseFss) =>
+      baseFss?.fold(
+        this,
+        (previousValue, element) => element != null
+            ? FSS.mergeFss(
+                element,
+                previousValue,
+              )
+            : previousValue,
+      ) ??
+      this;
 
   static FSS of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<FSSProvider>()?.fss ?? FSS.basic();
@@ -428,4 +477,6 @@ class FSS {
     fontStyle = FontStyle.normal;
     backgroundColor = Colors.transparent;
   }
+
+  bool hasBorderRadius() => (borderRadiusTopLeft ?? borderRadiusTopRight ?? borderRadiusBottomLeft ?? borderRadiusBottomRight) != null;
 }

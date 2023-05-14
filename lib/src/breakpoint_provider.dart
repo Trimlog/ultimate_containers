@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fss/flutter_fss.dart';
+import 'package:ultimate_containers/ultimate_containers.dart';
 
 class ResponsiveProvider extends InheritedWidget {
   ResponsiveProvider({

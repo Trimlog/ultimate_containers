@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fss/src/fss.dart';
+import 'package:ultimate_containers/ultimate_containers.dart';
 
 class FSSProvider extends InheritedWidget {
   FSSProvider({

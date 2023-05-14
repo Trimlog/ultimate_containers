@@ -1,5 +1,5 @@
-# flutter_fss
-Styling Widgets like CSS ith FSS.
+# ultimate_containers
+Your ultimate layouting widget is `C`. Container, Text, Column, Row and styling in one.
 
 ## Benefits
 - Style is decoupled from Widget
