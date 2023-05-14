@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:ultimate_containers/ultimate_containers.dart';
 
 class Breakpoints {
   late final Map<Breakpoint, double> breakpoints;

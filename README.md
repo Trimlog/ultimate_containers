@@ -30,10 +30,11 @@ Your ultimate layouting widget is `C`. Container, Text, Column, Row and styling 
 - [ ] Unit `pc` -> `Pc` `pc`
 - [ ] Unit `ex` -> `Ex` `ex`
 - [ ] Unit `ch` -> `Ch` `ch`
-- [ ] String unit parser `parseUnit('50px')` -> `Px(50)`
+- [X] String unit parser `u('50px')` -> `Px(50)`
+- [X] Basic unit arithmetic
 
 ## Responsiveness
-- [X] Responisve breakpoints `Breakpoints``Breakpoint` `BreakpointProvider``BreakpointProviderBuilder`
+- [X] Responisve breakpoints `Breakpoints`, `Breakpoint`
 
 ## CSS Properties
 ### Text
@@ -84,25 +85,24 @@ Your ultimate layouting widget is `C`. Container, Text, Column, Row and styling 
 - [X] inline, middle, outlin border -> `borderAlign`
 - [X] `background-color` -> `backgroundColor` `bg`
 - [ ] `aspect-ratio` -> `aspectRatio`
-
+- [ ] `max-height` -> `maxHeight`
+- [ ] `max-width` -> `maxWidth`
+- [ ] `min-height` -> `minHeight`
+- [ ] `min-width` -> `minWidth`
 ### Flex
-- [ ] Widget `Flex` `FlexRow` `FlexColumn` `FlexRowReverse` `FlexColumnReverse`
-- [ ] `flex-direction` -> `flexDirection`
+- [X] `flex-direction` -> `axis`
 - [ ] `flex-wrap` -> `flexWrap`
 - [ ] `flex-flow` -> `flexFlow`
-- [ ] `justify-content` -> `justifyContent`
-- [ ] `align-items` -> `alignItems`
-- [ ] `align-content` -> `alignContent`
+- [X] `justify-content` -> `alignHorizontal`
+- [X] `align-items` -> `alignVertical`
 - [ ] `gap` -> `gap`
 - [ ] `gap-vertical` -> `gapVertical`
 - [ ] `gap-horizontal` -> `gapHorizontal`
 
 ### Grid
-- [ ] Widget `Grid`
 - [ ] Unit `fr` -> `Fr`
 
-
 ## Stack
-- [ ] Widget `Stack`
-
+- [ ] Stack functionality
 ## Icon
+- [ ] Icon Widget `I`

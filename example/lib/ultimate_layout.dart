@@ -7,8 +7,7 @@ class UltimateLayoutPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext ctx) {
-    final uctx = UnitContext(ctx, null);
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ultimate Containers - Box Test'),
@@ -30,7 +29,7 @@ class UltimateLayoutPage extends StatelessWidget {
             maxWidth,
             content,
             'Content',
-            Breakpoints.basic().getBreakpoint(ctx).name,
+            Breakpoints.basic().getBreakpoint(context).name,
           ]),
         ]),
         C([

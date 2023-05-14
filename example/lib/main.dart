@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ultimate_containers/ultimate_containers.dart';
 import 'package:ultimate_containers_example/index.dart';
 
 void main() {

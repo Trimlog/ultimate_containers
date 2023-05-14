@@ -48,7 +48,7 @@ class BoxTestPage extends StatelessWidget {
                 FSS(
                   w: rem(3.4),
                   h: rem(2),
-                  bg: Color(0xFF34c759),
+                  bg: const Color(0xFF34c759),
                   br: rem(1),
                   p: rem(0.15),
                 ),
