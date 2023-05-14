@@ -11,33 +11,22 @@ abstract class Viewport implements Unit {
     if (uctx == null) throw MissingUnitContext();
     if (uctx.context == null) throw MissingBuildContext();
     final mediaQueryData = MediaQuery.of(uctx.context!);
-    if (unit == ViewportUnit.vw) {
-      return value * mediaQueryData.size.width;
-    } else if (unit == ViewportUnit.vh) {
-      return value * mediaQueryData.size.height;
-    } else if (unit == ViewportUnit.vmin) {
-      return value * mediaQueryData.size.shortestSide;
-    } else if (unit == ViewportUnit.vmax) {
-      return value * mediaQueryData.size.longestSide;
-    } else {
-      throw UnsupportedViewportUnit();
-    }
+
+    return switch (unit) {
+      ViewportUnit.vw => value * mediaQueryData.size.width,
+      ViewportUnit.vh => value * mediaQueryData.size.height,
+      ViewportUnit.vmin => value * mediaQueryData.size.shortestSide,
+      ViewportUnit.vmax => value * mediaQueryData.size.longestSide,
+    };
   }
 
   @override
-  String toString() {
-    if (unit == ViewportUnit.vw) {
-      return "${value}vw";
-    } else if (unit == ViewportUnit.vh) {
-      return "${value}vh";
-    } else if (unit == ViewportUnit.vmin) {
-      return "${value}vmin";
-    } else if (unit == ViewportUnit.vmax) {
-      return "${value}vmax";
-    } else {
-      return "$value";
-    }
-  }
+  String toString() => switch (unit) {
+        ViewportUnit.vw => "${value}vw",
+        ViewportUnit.vh => "${value}vh",
+        ViewportUnit.vmin => "${value}vmin",
+        ViewportUnit.vmax => "${value}vmax",
+      };
 
   const Viewport(this.value, this.unit);
 }

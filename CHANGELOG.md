@@ -1,3 +1,6 @@
+## 1.0.0-dev5
+- migrate to dart 3.0.0
+
 ## 1.0.0-dev4
 
 - added `EC`component (`C` wrapped with `Expanded`)

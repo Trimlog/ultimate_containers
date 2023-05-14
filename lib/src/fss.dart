@@ -544,19 +544,19 @@ class FSS {
 
   FSS flattenResponsive(Breakpoint? breakpoint) {
     final responsive = getResponsive(breakpoint);
-    if (responsive == null)
-      return this;
-    else
-      return this.merge(responsive.flattenResponsive(breakpoint));
+    return switch (responsive) {
+      null => this,
+      _ => this.merge(responsive.flattenResponsive(breakpoint)),
+    };
   }
 
-  FSS? getResponsive(Breakpoint? breakpoint) {
-    if (breakpoint == Breakpoint.xs) return xs;
-    if (breakpoint == Breakpoint.sm) return sm;
-    if (breakpoint == Breakpoint.md) return md;
-    if (breakpoint == Breakpoint.lg) return lg;
-    if (breakpoint == Breakpoint.xl) return xl;
-    if (breakpoint == Breakpoint.xxl) return xxl;
-    return null;
-  }
+  FSS? getResponsive(Breakpoint? breakpoint) => switch (breakpoint) {
+        Breakpoint.xs => xs,
+        Breakpoint.sm => sm,
+        Breakpoint.md => md,
+        Breakpoint.lg => lg,
+        Breakpoint.xl => xl,
+        Breakpoint.xxl => xxl,
+        _ => xs,
+      };
 }

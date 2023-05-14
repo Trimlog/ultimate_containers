@@ -36,8 +36,6 @@ class Breakpoints {
 
   Breakpoint getBreakpoint(BuildContext context) {
     final mqd = MediaQuery.of(context);
-    // print(mqd.size.width)
-    // print(this.breakpoints);
     if (breakpoints[Breakpoint.xxl] != null && mqd.size.width >= breakpoints[Breakpoint.xxl]!) return Breakpoint.xxl;
     if (breakpoints[Breakpoint.xl] != null && mqd.size.width >= breakpoints[Breakpoint.xl]!) return Breakpoint.xl;
     if (breakpoints[Breakpoint.lg] != null && mqd.size.width >= breakpoints[Breakpoint.lg]!) return Breakpoint.lg;
