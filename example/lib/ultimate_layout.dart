@@ -9,42 +9,40 @@ class UltimateLayoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext ctx) {
     final uctx = UnitContext(ctx, null);
-    return BreakpointsProviderBuilder(
-      builder: (ctx) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Ultimate Containers - Box Test'),
-        ),
-        body: C([
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Ultimate Containers - Box Test'),
+      ),
+      body: C([
+        C([
+          navbarWrapper,
+          vw100,
           C([
-            navbarWrapper,
-            vw100,
-            C([
-              navbar,
-              maxWidth,
-              'Navbar',
-            ]),
-          ]),
-          EC([
-            pv100,
-            vw100,
-            C([
-              maxWidth,
-              content,
-              'Content',
-              Breakpoints.of(ctx)?.getBreakpoint(ctx).name,
-            ]),
-          ]),
-          C([
-            footerWrapper,
-            vw100,
-            C([
-              maxWidth,
-              footer,
-              'footer',
-            ]),
+            navbar,
+            maxWidth,
+            'Navbar',
           ]),
         ]),
-      ),
+        EC([
+          pv100,
+          vw100,
+          C([
+            maxWidth,
+            content,
+            'Content',
+            Breakpoints.basic().getBreakpoint(ctx).name,
+          ]),
+        ]),
+        C([
+          footerWrapper,
+          vw100,
+          C([
+            maxWidth,
+            footer,
+            'footer',
+          ]),
+        ]),
+      ]),
     );
   }
 }

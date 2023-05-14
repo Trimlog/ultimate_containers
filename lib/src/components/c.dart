@@ -25,12 +25,11 @@ class C extends StatelessWidget {
 
   @override
   Widget build(BuildContext ctx) {
-    final breakpoint = Breakpoints.of(ctx)?.getBreakpoint(ctx);
     final fss = FSS
         .of(ctx)
         .inhertiable() // Inherit text styles
         .mergeMulti(this.fss) // merge provided styles
-        .flattenResponsive(breakpoint); // calculate responsive styles based on breakpoint
+        .flattenResponsive(ctx); // calculate responsive styles based on breakpoint
 
     return LayoutBuilder(
       builder: (ctx, constraints) {

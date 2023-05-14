@@ -20,20 +20,24 @@ class Breakpoints {
       if (xxl != null) Breakpoint.xxl: xxl,
     };
   }
-  static Breakpoints? of(BuildContext context) {
-    final breakpointProvider = context.dependOnInheritedWidgetOfExactType<BreakpointsProvider>();
-    return breakpointProvider?.breakpoints;
-  }
 
+  /// A basic set of breakpoints for a responsive layout.
+  /// xs: >0,
+  /// sm: >480,
+  /// md: >768,
+  /// lg: >992,
+  /// xl: >1200,
+  /// xxl: >1400,
   static Breakpoints basic() => Breakpoints(
         xs: 0,
-        sm: 576,
+        sm: 480,
         md: 768,
         lg: 992,
         xl: 1200,
         xxl: 1400,
       );
 
+  /// Determine the current breakpoint based on the screen width.
   Breakpoint getBreakpoint(BuildContext context) {
     final mqd = MediaQuery.of(context);
     if (breakpoints[Breakpoint.xxl] != null && mqd.size.width >= breakpoints[Breakpoint.xxl]!) return Breakpoint.xxl;

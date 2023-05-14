@@ -72,6 +72,7 @@ class FSS {
   FSS? lg;
   FSS? xl;
   FSS? xxl;
+  Breakpoints? breakpoints;
 
   // Getters
   TextStyle textStyle(UnitContext uctx) => TextStyle(
@@ -271,6 +272,9 @@ class FSS {
     /// xxl
     FSS? xxl,
 
+    /// responsive breakpoints
+    Breakpoints? breakpoints,
+
     // === Text Abbrevations ===
     /// color
     Color? c,
@@ -448,6 +452,7 @@ class FSS {
     this.lg = lg;
     this.xl = xl;
     this.xxl = xxl;
+    this.breakpoints = breakpoints;
   }
 
   static FSS mergeFss(FSS? baseFss, FSS? overwriteFss) {
@@ -492,6 +497,7 @@ class FSS {
             lg: overwriteFss.lg ?? baseFss.lg,
             xl: overwriteFss.xl ?? baseFss.xl,
             xxl: overwriteFss.xxl ?? baseFss.xxl,
+            breakpoints: overwriteFss.breakpoints ?? baseFss.breakpoints,
           )
         : baseFss;
   }
@@ -542,11 +548,16 @@ class FSS {
 
   bool hasBorderRadius() => (borderRadiusTopLeft ?? borderRadiusTopRight ?? borderRadiusBottomLeft ?? borderRadiusBottomRight) != null;
 
-  FSS flattenResponsive(Breakpoint? breakpoint) {
+  FSS flattenResponsive(BuildContext ctx) {
+    final breakpoint = (this.breakpoints ?? Breakpoints.basic()).getBreakpoint(ctx);
+    return _flattenResponsive(breakpoint);
+  }
+
+  FSS _flattenResponsive(Breakpoint? breakpoint) {
     final responsive = getResponsive(breakpoint);
     return switch (responsive) {
       null => this,
-      _ => this.merge(responsive.flattenResponsive(breakpoint)),
+      _ => this.merge(responsive._flattenResponsive(breakpoint)),
     };
   }
 

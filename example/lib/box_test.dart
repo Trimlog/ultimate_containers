@@ -41,6 +41,26 @@ class BoxTestPage extends StatelessWidget {
               C([
                 viewportBox1,
                 'viewportBox1',
+              ]),
+
+              // Apple Switch
+              C([
+                FSS(
+                  w: rem(3.4),
+                  h: rem(2),
+                  bg: Color(0xFF34c759),
+                  br: rem(1),
+                  p: rem(0.15),
+                ),
+                EC([
+                  FSS(
+                    w: percentH(1),
+                    h: percentH(1),
+                    bg: Colors.white,
+                    shadows: naturalShadow(),
+                    br: percentH(1) / 2,
+                  ),
+                ])
               ])
             ],
           ),
@@ -51,17 +71,12 @@ class BoxTestPage extends StatelessWidget {
 }
 
 final box = FSS(
-  bg: const Color.fromRGBO(240, 240, 250, 1),
-  shadows: [
-    UnitBoxShadow(
-      color: Colors.black,
-      offset: UnitOffset(rem(1), rem(1)),
-    )
-  ],
+  bg: Colors.amber,
+  shadows: naturalShadow(),
   p: rem(0.75),
   m: rem(0.1),
   br: rem(1),
-  borderColor: Colors.grey,
+  borderColor: Colors.grey[200],
   borderWidth: px(1),
   borderAlign: -1,
 );

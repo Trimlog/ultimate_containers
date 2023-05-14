@@ -1,3 +1,7 @@
+## 1.0.0-dev6
+- remove `BreakpointProviderBuilder` and `BreakpointProvider`
+- added `Breakpoints` to `FSS`
+
 ## 1.0.0-dev5
 - migrate to dart 3.0.0
 
