@@ -10,9 +10,6 @@ abstract class Percent implements Unit {
     if (uctx == null) throw MissingUnitContext();
     if (uctx.context == null) throw MissingBuildContext();
     if (uctx.constraints == null) throw MissingConstraints();
-    print(value);
-    print(axis);
-    print(uctx.constraints);
     if (axis == Axis.horizontal) {
       if (uctx.constraints!.maxWidth.isInfinite) {
         // Parent has given infinite width constraint

@@ -47,13 +47,21 @@ class C extends StatelessWidget {
                       bottomRight: Radius.circular(newFss.borderRadiusBottomRight?.px(uctx) ?? 0),
                     )
                   : BorderRadius.zero,
+              border: Border.fromBorderSide(BorderSide(
+                color: newFss.borderColor ?? Colors.transparent,
+                width: newFss.borderWidth?.px(uctx) ?? 0,
+                style: newFss.borderStyle ?? BorderStyle.solid,
+                strokeAlign: newFss.borderAlign ?? -1,
+              )),
               boxShadow: newFss.shadows?.map((e) => e.boxShadow(uctx)).toList(),
             ),
             child: FSSProvider(
               fss: newFss,
-              child: Column(
-                children: children,
-              ),
+              child: children.length > 1
+                  ? Column(
+                      children: children,
+                    )
+                  : children.first,
             ),
           ),
         );

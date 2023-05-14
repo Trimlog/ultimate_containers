@@ -57,6 +57,8 @@ class FSS {
   Unit? borderRadiusBottomRight;
   Color? borderColor;
   Unit? borderWidth;
+  double? borderAlign;
+  BorderStyle? borderStyle;
 
   // Box Shadow
   List<UnitBoxShadow>? shadows;
@@ -133,6 +135,8 @@ class FSS {
       if (borderRadiusBottomRight != null) 'borderRadiusBottomRight': borderRadiusBottomRight,
       if (borderColor != null) 'borderColor': borderColor,
       if (borderWidth != null) 'borderWidth': borderWidth,
+      if (borderStyle != null) 'borderStyle': borderStyle,
+      if (borderAlign != null) 'borderAlign': borderAlign,
       if (shadows != null) 'shadows': shadows
     };
   }
@@ -224,6 +228,15 @@ class FSS {
 
     /// border-width
     Unit? borderWidth,
+
+    /// border-style
+    BorderStyle? borderStyle,
+
+    /// border-align
+    /// -1 = inside
+    /// 0 = center
+    /// 1 = outside
+    double? borderAlign,
 
     /// shadow
     List<UnitBoxShadow>? shadows,
@@ -390,6 +403,8 @@ class FSS {
     this.borderRadiusBottomRight = borderRadius ?? br ?? borderRadiusBottom ?? brb ?? borderRadiusBottomRight ?? brbr;
     this.borderColor = borderColor ?? bc;
     this.borderWidth = borderWidth ?? bw;
+    this.borderStyle = borderStyle;
+    this.borderAlign = borderAlign;
 
     // Box Style Abbrevations
     this.width = width ?? w;
@@ -430,6 +445,10 @@ class FSS {
             borderRadiusTopRight: overwriteFss.borderRadiusTopRight ?? baseFss.borderRadiusTopRight,
             borderRadiusBottomLeft: overwriteFss.borderRadiusBottomLeft ?? baseFss.borderRadiusBottomLeft,
             borderRadiusBottomRight: overwriteFss.borderRadiusBottomRight ?? baseFss.borderRadiusBottomRight,
+            borderColor: overwriteFss.borderColor ?? baseFss.borderColor,
+            borderWidth: overwriteFss.borderWidth ?? baseFss.borderWidth,
+            borderStyle: overwriteFss.borderStyle ?? baseFss.borderStyle,
+            borderAlign: overwriteFss.borderAlign ?? baseFss.borderAlign,
           )
         : baseFss;
   }

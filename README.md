@@ -14,22 +14,23 @@ Your ultimate layouting widget is `C`. Container, Text, Column, Row and styling 
 - [X] Multiple styles per widget
 - [X] Inherit text styles from parent
 ## Units 
-- [X] Unit `px` -> `Px`
-- [X] Unit `%` -> `PercentV` `PercentH`
-- [X] Unit `em` -> `Em`
-- [X] Unit `rem` -> `Rem`
-- [X] Unit `vw` -> `Vw` (`50vw` -> `Vw(0.5)`).
-- [X] Unit `vh` -> `Vh` (`50vh` -> `Vh(0.5)`).
-- [X] Unit `vmin` -> `Vmin` (`50vmin` -> `Vmin(0.5)`).
-- [X] Unit `vmax` -> `Vmax` (`50vmax` -> `Vmax(0.5)`).
-- [ ] Unit `fr` -> `Fr`
-- [ ] Unit `cm` -> `Cm`
-- [ ] Unit `mm` -> `Mm`
-- [ ] Unit `in` -> `In`
-- [ ] Unit `pt` -> `Pt`
-- [ ] Unit `pc` -> `Pc`
-- [ ] Unit `ex` -> `Ex`
-- [ ] Unit `ch` -> `Ch`
+- [X] Unit `px` -> `Px` `px`
+- [X] Unit `%` -> `PercentV` `PercentH` `percentV` `percentH`
+- [X] Unit `em` -> `Em` `em`
+- [X] Unit `rem` -> `Rem` `rem`
+- [X] Unit `vw` -> `Vw` `vw` (`50vw` -> `Vw(0.5)`).
+- [X] Unit `vh` -> `Vh` `vh`(`50vh` -> `Vh(0.5)`).
+- [X] Unit `vmin` -> `Vmin` `vmin`(`50vmin` -> `Vmin(0.5)`).
+- [X] Unit `vmax` -> `Vmax` `vmax`(`50vmax` -> `Vmax(0.5)`).
+- [ ] Unit `fr` -> `Fr` `fr`
+- [ ] Unit `cm` -> `Cm` `cm`
+- [ ] Unit `mm` -> `Mm` `mm`
+- [ ] Unit `in` -> `In` `in`
+- [ ] Unit `pt` -> `Pt` `pt`
+- [ ] Unit `pc` -> `Pc` `pc`
+- [ ] Unit `ex` -> `Ex` `ex`
+- [ ] Unit `ch` -> `Ch` `ch`
+- [ ] String unit parser `parseUnit('50px')` -> `Px(50)`
 
 ## Responsiveness
 - [ ] Responisve breakpoints
@@ -49,8 +50,8 @@ Your ultimate layouting widget is `C`. Container, Text, Column, Row and styling 
 - [X] `text-decoration` -> `textDecoration`
 - [X] `text-shadow` -> `textShadowColor` `textShadowBlur` `textShadowOffset`
 
-### Box
-- [X] Widget `Box` is like `Container` but with FSS support
+### Contaeiner
+- [X] Widget `C` is like `Container` but with FSS support
 - [X] Support multiple FSS styles per widget (like CSS classes)
 - [X] `width` -> `width`
 - [X] `height` -> `height`
@@ -77,9 +78,10 @@ Your ultimate layouting widget is `C`. Container, Text, Column, Row and styling 
 - [X] `border-radius-bottom` -> `borderRadiusBottom` `brb`
 - [X] `border-radius-left` -> `borderRadiusLeft` `brl`
 - [X] `border-radius` -> `borderRadius` `br`
-- [ ] `border-width` -> `borderWidth` `bw`
-- [ ] `border-style` -> `borderStyle` `bs`
-- [ ] `border-color` -> `borderColor` `bc`
+- [X] `border-width` -> `borderWidth` `bw`
+- [X] `border-style` -> `borderStyle` `bs`
+- [X] `border-color` -> `borderColor` `bc`
+- [X] inline, middle, outlin border -> `borderAlign`
 - [X] `background-color` -> `backgroundColor` `bg`
 - [ ] `aspect-ratio` -> `aspectRatio`
 
@@ -98,3 +100,7 @@ Your ultimate layouting widget is `C`. Container, Text, Column, Row and styling 
 ### Grid
 - [ ] Widget `Grid`
 - [ ] Unit `fr` -> `Fr`
+
+
+## Stack
+- [ ] Widget `Stack`

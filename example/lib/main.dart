@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: C([
-          FSS(backgroundColor: Colors.amber),
+          FSS(p: rem(1)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -48,26 +48,24 @@ class _MyHomePageState extends State<MyHomePage> {
               // Pixel Container
               C([
                 pxBox,
-                '50px x 50px',
+                'pxBox',
               ]),
               C([
                 emBox,
-                '3em x 3em',
+                'emBox',
               ]),
               // Percent Parent Container
+
+              // Percent Container
               C([
-                FSS(w: u('10%'), h: u('10rem')).dependsOn(box),
-                '50% x 50%',
-                // Percent Container
-                // C([
-                //   percentBox,
-                //   '10px x 10px',
-                // ]),
+                percentBox,
+                'percentBox',
               ]),
+
               // Viewport Container
               C([
                 viewportBox1,
-                '50vw x 10vh',
+                'viewportBox1',
               ])
             ],
           ),
@@ -78,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 final box = FSS(
-  bg: const Color.fromRGBO(230, 230, 240, 1),
+  bg: const Color.fromRGBO(240, 240, 250, 1),
   shadows: [
     UnitBoxShadow(
       color: Colors.black,
@@ -88,6 +86,9 @@ final box = FSS(
   p: rem(0.75),
   m: rem(0.1),
   br: rem(1),
+  borderColor: Colors.grey,
+  borderWidth: px(1),
+  borderAlign: -1,
 );
 final pxBox = FSS(
   w: px(200),
@@ -97,10 +98,7 @@ final emBox = FSS(
   w: em(5),
   h: em(5),
 ).dependsOn(box);
-final percentBox = FSS(
-  w: px(50),
-  h: px(50),
-).dependsOn(box);
+final percentBox = FSS(w: percentW(0.2), h: percentW(0.2)).dependsOn(box);
 final viewportBox1 = FSS(
   w: vw(0.5),
   h: vh(0.1),
