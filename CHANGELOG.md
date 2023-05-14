@@ -1,3 +1,8 @@
+## 1.0.0-dev7
+- fix responsive `FSS` merging
+- added FSS flex stettings `axis` (Column/Row), `alignHorizontal` (justify-content), `alignVertical` (align-items), `axisSize` (Row/Column MainAxisSize)
+- added `AxisAlignment` as a wrapper for `MainAxisAlignment` and `CrossAxisAlignment`
+
 ## 1.0.0-dev6
 - remove `BreakpointProviderBuilder` and `BreakpointProvider`
 - added `Breakpoints` to `FSS`

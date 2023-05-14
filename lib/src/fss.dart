@@ -26,7 +26,7 @@ class FSS {
         letterSpacing: Px(style.letterSpacing ?? 0),
         wordSpacing: Px(style.wordSpacing ?? 0),
         fontFamily: style.fontFamily,
-      ));
+      ))!;
 
   // Text shadow
   Color? textShadowColor;
@@ -36,7 +36,7 @@ class FSS {
         textShadowColor: shadow.color,
         textShadowOffset: shadow.offset,
         textShadowBlur: Px(shadow.blurRadius),
-      ));
+      ))!;
 
   // Box styles
   Unit? width;
@@ -73,6 +73,12 @@ class FSS {
   FSS? xl;
   FSS? xxl;
   Breakpoints? breakpoints;
+
+  // Flex
+  Axis? axis;
+  AxisAlignment? alignVertical;
+  AxisAlignment? alignHorizontal;
+  MainAxisSize? axisSize;
 
   // Getters
   TextStyle textStyle(UnitContext uctx) => TextStyle(
@@ -151,6 +157,11 @@ class FSS {
       if (lg != null) 'lg': lg?.toMap(),
       if (xl != null) 'xl': xl?.toMap(),
       if (xxl != null) 'xxl': xxl?.toMap(),
+      if (breakpoints != null) 'breakpoints': breakpoints?.breakpoints,
+      if (axis != null) 'axis': axis,
+      if (alignVertical != null) 'alignVertical': alignVertical,
+      if (alignHorizontal != null) 'alignHorizontal': alignHorizontal,
+      if (axisSize != null) 'axisSize': axisSize,
     };
   }
 
@@ -274,6 +285,18 @@ class FSS {
 
     /// responsive breakpoints
     Breakpoints? breakpoints,
+
+    /// flex-direction
+    Axis? axis,
+
+    /// justify-content
+    AxisAlignment? alignHorizontal,
+
+    /// align-content
+    AxisAlignment? alignVertical,
+
+    ///
+    MainAxisSize? axisSize,
 
     // === Text Abbrevations ===
     /// color
@@ -453,10 +476,16 @@ class FSS {
     this.xl = xl;
     this.xxl = xxl;
     this.breakpoints = breakpoints;
+
+    // Flex
+    this.axis = axis ?? Axis.vertical;
+    this.alignVertical = alignVertical;
+    this.alignHorizontal = alignHorizontal;
+    this.axisSize = axisSize;
   }
 
-  static FSS mergeFss(FSS? baseFss, FSS? overwriteFss) {
-    if (baseFss == null) return FSS();
+  static FSS? mergeFss(FSS? baseFss, FSS? overwriteFss) {
+    if (baseFss == null) return overwriteFss;
     return overwriteFss != null
         ? FSS(
             color: overwriteFss.color ?? baseFss.color,
@@ -491,20 +520,24 @@ class FSS {
             borderStyle: overwriteFss.borderStyle ?? baseFss.borderStyle,
             borderAlign: overwriteFss.borderAlign ?? baseFss.borderAlign,
             shadows: overwriteFss.shadows ?? baseFss.shadows,
-            xs: overwriteFss.xs ?? baseFss.xs,
-            sm: overwriteFss.sm ?? baseFss.sm,
-            md: overwriteFss.md ?? baseFss.md,
-            lg: overwriteFss.lg ?? baseFss.lg,
-            xl: overwriteFss.xl ?? baseFss.xl,
-            xxl: overwriteFss.xxl ?? baseFss.xxl,
+            xs: FSS.mergeFss(baseFss.xs, overwriteFss.xs),
+            sm: FSS.mergeFss(baseFss.sm, overwriteFss.sm),
+            md: FSS.mergeFss(baseFss.md, overwriteFss.md),
+            lg: FSS.mergeFss(baseFss.lg, overwriteFss.lg),
+            xl: FSS.mergeFss(baseFss.xl, overwriteFss.xl),
+            xxl: FSS.mergeFss(baseFss.xxl, overwriteFss.xxl),
             breakpoints: overwriteFss.breakpoints ?? baseFss.breakpoints,
+            axis: overwriteFss.axis ?? baseFss.axis,
+            alignVertical: overwriteFss.alignVertical ?? baseFss.alignVertical,
+            alignHorizontal: overwriteFss.alignHorizontal ?? baseFss.alignHorizontal,
+            axisSize: overwriteFss.axisSize ?? baseFss.axisSize,
           )
         : baseFss;
   }
 
-  FSS merge(FSS overwriteFss) => FSS.mergeFss(this, overwriteFss);
+  FSS? merge(FSS? overwriteFss) => FSS.mergeFss(this, overwriteFss);
 
-  FSS mergeMulti(List<FSS?>? overwriteFss) =>
+  FSS? mergeMulti(List<FSS?>? overwriteFss) =>
       overwriteFss?.fold(
         this,
         (previousValue, element) => element != null
@@ -516,9 +549,9 @@ class FSS {
       ) ??
       this;
 
-  FSS dependsOn(FSS baseFss) => FSS.mergeFss(baseFss, this);
+  FSS? dependsOn(FSS? baseFss) => FSS.mergeFss(baseFss, this);
 
-  FSS dependsOnMulti(List<FSS?>? baseFss) =>
+  FSS? dependsOnMulti(List<FSS?>? baseFss) =>
       baseFss?.fold(
         this,
         (previousValue, element) => element != null
@@ -548,26 +581,20 @@ class FSS {
 
   bool hasBorderRadius() => (borderRadiusTopLeft ?? borderRadiusTopRight ?? borderRadiusBottomLeft ?? borderRadiusBottomRight) != null;
 
-  FSS flattenResponsive(BuildContext ctx) {
+  FSS? flattenResponsive(BuildContext ctx) {
     final breakpoint = (this.breakpoints ?? Breakpoints.basic()).getBreakpoint(ctx);
-    return _flattenResponsive(breakpoint);
+    FSS? mergedFss = FSS.mergeFss(this, xs);
+    if (breakpoint == Breakpoint.xs) return mergedFss;
+    mergedFss = FSS.mergeFss(mergedFss, sm);
+    if (breakpoint == Breakpoint.sm) return mergedFss;
+    mergedFss = FSS.mergeFss(mergedFss, md);
+    if (breakpoint == Breakpoint.md) return mergedFss;
+    mergedFss = FSS.mergeFss(mergedFss, lg);
+    if (breakpoint == Breakpoint.lg) return mergedFss;
+    mergedFss = FSS.mergeFss(mergedFss, xl);
+    if (breakpoint == Breakpoint.xl) return mergedFss;
+    mergedFss = FSS.mergeFss(mergedFss, xxl);
+    if (breakpoint == Breakpoint.xxl) return mergedFss;
+    return null;
   }
-
-  FSS _flattenResponsive(Breakpoint? breakpoint) {
-    final responsive = getResponsive(breakpoint);
-    return switch (responsive) {
-      null => this,
-      _ => this.merge(responsive._flattenResponsive(breakpoint)),
-    };
-  }
-
-  FSS? getResponsive(Breakpoint? breakpoint) => switch (breakpoint) {
-        Breakpoint.xs => xs,
-        Breakpoint.sm => sm,
-        Breakpoint.md => md,
-        Breakpoint.lg => lg,
-        Breakpoint.xl => xl,
-        Breakpoint.xxl => xxl,
-        _ => xs,
-      };
 }

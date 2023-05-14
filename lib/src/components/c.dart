@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ultimate_containers/ultimate_containers.dart';
 
-/// Ultimate Container Widget
 class C extends StatelessWidget {
+  /// Ultimate Container Widget
   C(
     dynamic inputs, {
     Key? key,
@@ -26,10 +26,12 @@ class C extends StatelessWidget {
   @override
   Widget build(BuildContext ctx) {
     final fss = FSS
-        .of(ctx)
-        .inhertiable() // Inherit text styles
-        .mergeMulti(this.fss) // merge provided styles
-        .flattenResponsive(ctx); // calculate responsive styles based on breakpoint
+            .of(ctx)
+            .inhertiable() // Inherit text styles
+            .mergeMulti(this.fss) // merge provided styles
+            ?.flattenResponsive(ctx) // calculate responsive styles based on breakpoint
+        ??
+        FSS();
 
     return LayoutBuilder(
       builder: (ctx, constraints) {
@@ -60,13 +62,22 @@ class C extends StatelessWidget {
               boxShadow: fss.shadows?.map((e) => e.boxShadow(uctx)).toList(),
             ),
             child: FSSProvider(
-                fss: fss,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: children,
-                )),
+              fss: fss,
+              child: switch (fss.axis) {
+                Axis.horizontal => Row(
+                    mainAxisAlignment: toMainAxisAlignment(fss.alignHorizontal),
+                    crossAxisAlignment: toCrossAxisAlignment(fss.alignHorizontal),
+                    mainAxisSize: fss.axisSize ?? MainAxisSize.max,
+                    children: children,
+                  ),
+                Axis.vertical || null => Column(
+                    mainAxisAlignment: toMainAxisAlignment(fss.alignVertical),
+                    crossAxisAlignment: toCrossAxisAlignment(fss.alignVertical),
+                    mainAxisSize: fss.axisSize ?? MainAxisSize.max,
+                    children: children,
+                  ),
+              },
+            ),
           ),
         );
       },

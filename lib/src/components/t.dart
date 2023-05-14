@@ -34,7 +34,7 @@ class T extends StatelessWidget {
         final uctx = UnitContext(ctx, constraints);
         return Text(
           strings.join(' '),
-          style: calculatedFss.textStyle(uctx),
+          style: calculatedFss?.textStyle(uctx),
         );
       },
     );

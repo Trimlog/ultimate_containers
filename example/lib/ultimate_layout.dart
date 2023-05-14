@@ -47,7 +47,11 @@ class UltimateLayoutPage extends StatelessWidget {
   }
 }
 
-final vw100 = FSS(w: vw(1));
+final vw100 = FSS(
+  w: vw(1),
+  axis: Axis.horizontal,
+  alignHorizontal: AxisAlignment.center,
+);
 
 final pv100 = FSS(
   h: percentH(100),
@@ -63,17 +67,23 @@ final navbar = FSS(
 );
 
 final maxWidth = FSS(
-  w: rem(40),
+  w: vw(1),
   borderColor: Colors.red,
   borderWidth: px(1),
   borderAlign: 0.0,
+  md: FSS(
+    w: vw(0.7),
+  ),
 );
 
 final content = FSS(
   bg: Colors.amber,
   p: rem(1),
   sm: FSS(bg: Colors.red),
-  md: FSS(bg: Colors.green),
+  md: FSS(
+    bg: Colors.green,
+    paddingHorizontal: px(0),
+  ),
   lg: FSS(bg: Colors.blue),
   xl: FSS(bg: Colors.purple),
 );
