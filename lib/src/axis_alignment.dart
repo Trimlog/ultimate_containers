@@ -32,6 +32,36 @@ CrossAxisAlignment toCrossAxisAlignment(AxisAlignment? aa) => switch (aa) {
       null => CrossAxisAlignment.start,
     };
 
+AlignmentDirectional toAlignmentDirectional(AxisAlignment? vertical, AxisAlignment? horizontal) {
+  final double x = switch (horizontal) {
+    AxisAlignment.start => -1,
+    AxisAlignment.center => 0,
+    AxisAlignment.end => 1,
+    AxisAlignment.spaceBetween => throw AxisAlignmentConversionError(),
+    AxisAlignment.spaceAround => throw AxisAlignmentConversionError(),
+    AxisAlignment.spaceEvenly => throw AxisAlignmentConversionError(),
+    AxisAlignment.baseline => throw AxisAlignmentConversionError(),
+    null => -1,
+  };
+
+  final double y = switch (vertical) {
+    AxisAlignment.start => -1,
+    AxisAlignment.center => 0,
+    AxisAlignment.end => 1,
+    AxisAlignment.spaceBetween => throw AxisAlignmentConversionError(),
+    AxisAlignment.spaceAround => throw AxisAlignmentConversionError(),
+    AxisAlignment.spaceEvenly => throw AxisAlignmentConversionError(),
+    AxisAlignment.baseline => throw AxisAlignmentConversionError(),
+    null => -1,
+  };
+
+  return AlignmentDirectional(x, y);
+}
+
+class AxisAlignmentConversionError extends Error {
+  final message = 'AxisAlignment can only have start, end, or center for both vertical and horizontal';
+}
+
 class MainAxisAlignmentCannotHaveBaseline extends Error {
   final message = 'AxisAlignment.baseline cannot be used with MainAxisAlignment';
 }

@@ -1,3 +1,9 @@
+## 1.0.0-dev8
+- added 'Axis3D'
+- changed FSS `axis` from `Axis` to `Axis3D`
+- added `AxisSize` for conversion to `MainAxisSize` and `StackFit`
+- changed FSS `axisSize` from `MainAxisSize` to `AxisSize`
+
 ## 1.0.0-dev7
 - fix responsive `FSS` merging
 - added FSS flex stettings `axis` (Column/Row), `alignHorizontal` (justify-content), `alignVertical` (align-items), `axisSize` (Row/Column MainAxisSize)

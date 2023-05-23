@@ -1,7 +1,9 @@
 library ultimate_containers;
 
 export 'src/components/components.dart';
+export 'src/axis_3d.dart';
 export 'src/axis_alignment.dart';
+export 'src/axis_size.dart';
 export 'src/breakpoints.dart';
 export 'src/fss_helpers.dart';
 export 'src/fss_provider.dart';

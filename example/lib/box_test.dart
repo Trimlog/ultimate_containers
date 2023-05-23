@@ -61,6 +61,13 @@ class BoxTestPage extends StatelessWidget {
                     br: percentH(1) / 2,
                   ),
                 ])
+              ]),
+
+              // Stack
+              C([
+                stack,
+                C([stackContainer1]),
+                C([stackContainer2]),
               ])
             ],
           ),
@@ -96,4 +103,22 @@ final viewportBox1 = FSS(
 final viewportBox2 = FSS(
   w: vw(1.0),
   h: vh(0.0),
+).dependsOn(box);
+
+final stack = FSS(
+  axis: Axis3D.deep,
+  alignHorizontal: AxisAlignment.center,
+  alignVertical: AxisAlignment.center,
+);
+
+final stackContainer1 = FSS(
+  bg: Colors.red,
+  w: rem(4),
+  h: rem(4),
+).dependsOn(box);
+
+final stackContainer2 = FSS(
+  bg: Colors.green,
+  w: rem(3),
+  h: rem(3),
 ).dependsOn(box);

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ultimate_containers/src/axis_3d.dart';
+import 'package:ultimate_containers/src/axis_size.dart';
 import 'package:ultimate_containers/ultimate_containers.dart';
 
 class FSS {
@@ -75,10 +77,10 @@ class FSS {
   Breakpoints? breakpoints;
 
   // Flex
-  Axis? axis;
+  Axis3D? axis;
   AxisAlignment? alignVertical;
   AxisAlignment? alignHorizontal;
-  MainAxisSize? axisSize;
+  AxisSize? axisSize;
 
   // Getters
   TextStyle textStyle(UnitContext uctx) => TextStyle(
@@ -287,7 +289,7 @@ class FSS {
     Breakpoints? breakpoints,
 
     /// flex-direction
-    Axis? axis,
+    Axis3D? axis,
 
     /// justify-content
     AxisAlignment? alignHorizontal,
@@ -296,7 +298,7 @@ class FSS {
     AxisAlignment? alignVertical,
 
     ///
-    MainAxisSize? axisSize,
+    AxisSize? axisSize,
 
     // === Text Abbrevations ===
     /// color
@@ -478,7 +480,7 @@ class FSS {
     this.breakpoints = breakpoints;
 
     // Flex
-    this.axis = axis ?? Axis.vertical;
+    this.axis = axis ?? Axis3D.vertical;
     this.alignVertical = alignVertical;
     this.alignHorizontal = alignHorizontal;
     this.axisSize = axisSize;

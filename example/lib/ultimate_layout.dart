@@ -48,7 +48,7 @@ class UltimateLayoutPage extends StatelessWidget {
 
 final vw100 = FSS(
   w: vw(1),
-  axis: Axis.horizontal,
+  axis: Axis3D.horizontal,
   alignHorizontal: AxisAlignment.center,
 );
 

@@ -64,16 +64,21 @@ class C extends StatelessWidget {
             child: FSSProvider(
               fss: fss,
               child: switch (fss.axis) {
-                Axis.horizontal => Row(
-                    mainAxisAlignment: toMainAxisAlignment(fss.alignHorizontal),
-                    crossAxisAlignment: toCrossAxisAlignment(fss.alignHorizontal),
-                    mainAxisSize: fss.axisSize ?? MainAxisSize.max,
+                Axis3D.deep => Stack(
+                    alignment: toAlignmentDirectional(fss.alignVertical, fss.alignHorizontal),
+                    fit: toStackFit(fss.axisSize) ?? StackFit.loose,
                     children: children,
                   ),
-                Axis.vertical || null => Column(
+                Axis3D.horizontal => Row(
+                    mainAxisAlignment: toMainAxisAlignment(fss.alignHorizontal),
+                    crossAxisAlignment: toCrossAxisAlignment(fss.alignHorizontal),
+                    mainAxisSize: toMainAxisSize(fss.axisSize) ?? MainAxisSize.max,
+                    children: children,
+                  ),
+                Axis3D.vertical || null => Column(
                     mainAxisAlignment: toMainAxisAlignment(fss.alignVertical),
                     crossAxisAlignment: toCrossAxisAlignment(fss.alignVertical),
-                    mainAxisSize: fss.axisSize ?? MainAxisSize.max,
+                    mainAxisSize: toMainAxisSize(fss.axisSize) ?? MainAxisSize.max,
                     children: children,
                   ),
               },
